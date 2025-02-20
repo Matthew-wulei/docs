@@ -21,11 +21,10 @@
         ],
         "parameters": [
           {
-            "name": "Sk",
+            "name": "X-ClipZap-Apikey",
             "in": "header",
             "description": "",
-            "required": false,
-            "example": "wd2d21d2d2d2dsd2",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -66,6 +65,15 @@
           "Faceswap"
         ],
         "parameters": [
+          {
+            "name": "X-ClipZap-Apikey",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "objectID",
             "in": "query",
