@@ -1,195 +1,402 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
+    "title": "ClipZap",
+    "description": "",
     "version": "1.0.0"
   },
-  "servers": [
+  "tags": [
     {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
+      "name": "Faceswap"
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
+    "/v1/faceswap-openapi/create": {
+      "post": {
+        "summary": "创建任务",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Faceswap"
+        ],
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
+            "name": "Sk",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "wd2d21d2d2d2dsd2",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
         "requestBody": {
-          "description": "Plant to add to the store",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
+                "$ref": "#/components/schemas/ourea-api.api.v1.faceswap.CreateReq"
+              },
+              "example": ""
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/ourea-api.api.v1.faceswap.CreateRes"
                 }
               }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            },
+            "headers": {}
           }
-        }
+        },
+        "security": []
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/v1/faceswap-opanpai/listbyids": {
+      "get": {
+        "summary": "获取任务详情（支持批量）",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Faceswap"
+        ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
+            "name": "objectID",
+            "in": "query",
+            "description": "任务ID（支持批量，逗号分隔）",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "description": "任务ID（支持批量，逗号分隔）",
+              "format": "string",
+              "type": "string"
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
+          "200": {
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ourea-api.api.v1.faceswap.GetListByIdsRes"
                 }
               }
-            }
+            },
+            "headers": {}
           }
-        }
+        },
+        "security": []
       }
     }
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
+      "ourea-api.api.v1.faceswap.CreateReq": {
         "properties": {
+          "title": {
+            "format": "string",
+            "type": "string"
+          },
+          "imageUrl": {
+            "format": "string",
+            "type": "string"
+          },
+          "videoUrl": {
+            "format": "string",
+            "type": "string"
+          },
+          "duration": {
+            "format": "int",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "type": "object"
+      },
+      "ourea-api.api.v1.faceswap.CreateRes": {
+        "properties": {
+          "objectID": {
+            "format": "string",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ourea-api.internal.model.entity.Footage": {
+        "properties": {
+          "id": {
+            "format": "uint",
+            "type": "integer"
+          },
+          "type": {
+            "format": "string",
+            "type": "string"
+          },
           "name": {
-            "description": "The name of the plant",
+            "format": "string",
             "type": "string"
           },
-          "tag": {
-            "description": "Tag to specify the type",
+          "card": {
+            "format": "string",
             "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
           },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
+          "cardId": {
+            "format": "string",
+            "type": "string"
+          },
+          "workflowId": {
+            "format": "string",
+            "type": "string"
+          },
+          "status": {
+            "format": "string",
+            "type": "string"
+          },
+          "cover": {
+            "description": "封面图片",
+            "format": "string",
+            "type": "string"
+          },
+          "objectId": {
+            "format": "string",
+            "type": "string"
+          },
+          "userId": {
+            "format": "uint",
+            "type": "integer"
+          },
+          "webId": {
+            "format": "string",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "*gtime.Time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "*gtime.Time",
+            "type": "string"
+          },
+          "trashedAt": {
+            "format": "*gtime.Time",
+            "type": "string"
+          },
+          "removedAt": {
+            "format": "*gtime.Time",
+            "type": "string"
+          },
+          "videoQty": {
+            "format": "uint",
+            "type": "integer"
           }
-        ]
+        },
+        "type": "object"
       },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
+      "ourea-api.internal.model.entity.Video": {
         "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
+          "id": {
+            "format": "uint64",
+            "type": "integer"
           },
-          "message": {
+          "userId": {
+            "format": "uint64",
+            "type": "integer"
+          },
+          "objectId": {
+            "format": "string",
+            "type": "string"
+          },
+          "footageId": {
+            "format": "string",
+            "type": "string"
+          },
+          "name": {
+            "format": "string",
+            "type": "string"
+          },
+          "width": {
+            "format": "uint",
+            "type": "integer"
+          },
+          "height": {
+            "format": "uint",
+            "type": "integer"
+          },
+          "size": {
+            "description": "文件大小",
+            "format": "uint",
+            "type": "integer"
+          },
+          "duration": {
+            "description": "视频时长",
+            "format": "uint",
+            "type": "integer"
+          },
+          "suffix": {
+            "format": "string",
+            "type": "string"
+          },
+          "webId": {
+            "description": "footage id generated by front-end",
+            "format": "string",
+            "type": "string"
+          },
+          "status": {
+            "format": "string",
+            "type": "string"
+          },
+          "originUrl": {
+            "description": "视频在云端地址",
+            "format": "string",
+            "type": "string"
+          },
+          "videoUrl": {
+            "description": "视频地址",
+            "format": "string",
+            "type": "string"
+          },
+          "coverUrl": {
+            "format": "string",
+            "type": "string"
+          },
+          "audioUrl": {
+            "description": "语音地址",
+            "format": "string",
+            "type": "string"
+          },
+          "avatars": {
+            "description": "视频中脸url list",
+            "format": "string",
+            "type": "string"
+          },
+          "audioText": {
+            "description": "语音文本",
+            "format": "string",
+            "type": "string"
+          },
+          "uploadAt": {
+            "format": "*gtime.Time",
             "type": "string"
           }
-        }
+        },
+        "type": "object"
+      },
+      "ourea-api.api.v1.faceswap.ListItemEntity": {
+        "properties": {
+          "id": {
+            "properties": {},
+            "type": "object"
+          },
+          "imageUrl": {
+            "description": "人脸图片地址",
+            "format": "string",
+            "type": "string"
+          },
+          "videoUrl": {
+            "description": "视频地址",
+            "format": "string",
+            "type": "string"
+          },
+          "userId": {
+            "description": "用户ID",
+            "format": "uint64",
+            "type": "integer"
+          },
+          "objectId": {
+            "description": "唯一ID",
+            "format": "string",
+            "type": "string"
+          },
+          "title": {
+            "description": "标题",
+            "format": "string",
+            "type": "string"
+          },
+          "status": {
+            "description": "状态",
+            "format": "string",
+            "type": "string"
+          },
+          "taskId": {
+            "format": "string",
+            "type": "string"
+          },
+          "footageId": {
+            "format": "string",
+            "type": "string"
+          },
+          "videoId": {
+            "format": "string",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "创建时间",
+            "format": "*gtime.Time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "description": "更新时间",
+            "format": "*gtime.Time",
+            "type": "string"
+          },
+          "deletedAt": {
+            "description": "删除时间",
+            "format": "*gtime.Time",
+            "type": "string"
+          },
+          "publishStatus": {
+            "description": "发布状态（0-未发布;1-已发布）",
+            "format": "int",
+            "type": "integer"
+          },
+          "duration": {
+            "description": "视频时长（毫秒）",
+            "format": "uint",
+            "type": "integer"
+          },
+          "error": {
+            "description": "错误信息",
+            "format": "string",
+            "type": "string"
+          },
+          "Footage": {
+            "$ref": "#/components/schemas/ourea-api.internal.model.entity.Footage"
+          },
+          "Video": {
+            "$ref": "#/components/schemas/ourea-api.internal.model.entity.Video"
+          }
+        },
+        "type": "object"
+      },
+      "ourea-api.api.v1.faceswap.GetListByIdsRes": {
+        "properties": {
+          "list": {
+            "description": "任务列表",
+            "format": "[]*faceswap.ListItemEntity",
+            "items": {
+              "$ref": "#/components/schemas/ourea-api.api.v1.faceswap.ListItemEntity"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
       }
     },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://api.clipzap.ai",
+      "description": "正式环境"
     }
-  }
+  ],
+  "security": []
 }
