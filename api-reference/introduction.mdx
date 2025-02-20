@@ -1,33 +1,49 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'Example section for ClipZap`s API endpoints'
+
 ---
 
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+    No need to
 </Note>
 
 ## Welcome
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+Welcome to the ClipZap API documentation. Here we will guide you on how to use the API to manage and perform various operations with OpenAPI keys (sk). The documentation is organized into two main sections:
+
+1. Creating and Managing OpenAPI Keys (sk)
+
+Before you can start using the API for production tasks, you need to create an OpenAPI key (sk) for authentication and authorization. Here are simple instructions on how to do this:
 
 <Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
+    title="Get your OpenAPI Keys"
+    icon="leaf"
+    href="https://www.clipzap.ai/workspace/payment"
 >
-  View the OpenAPI specification file
+    Successful call after any payment
 </Card>
 
-## Authentication
+**Create a new key**: Using the POST /v1/openapi_account/new interface, you can create a new OpenAPI key for a user. You need to provide userId as a parameter in the request.
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+**View key list**: using the GET /v1/openapi_account/list interface, you can get a list of all OpenAPI keys for a user. This helps you to manage and track the user's key usage.
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+**Delete Keys**: If you need to revoke the privileges of a key, you can use the POST /v1/openapi_account/delete interface to delete the specified OpenAPI key.
+
+2. Using OpenAPI Keys for Production Tasks
+
+Once you have successfully created and obtained an OpenAPI key (sk), you can use it for task creation and management in the faceswap-openapi service.
+
+**Creating a task**: via the POST /v1/faceswap_openapi/create interface, you can create a new replacement face task. The request needs to provide the task details including title, imageUrl, videoUrl and duration. make sure to include a valid sk in the request header.
+
+**Getting task details**: Use the GET /v1/faceswap_openapi/listbyids interface to get the details of one or more tasks. You need to provide the objectID of the task in the request.
+
+## Cautions
+
+**Authentication**: All API requests for production tasks need to include a valid OpenAPI key (sk) in the request header for authentication.
+
+**Data format**: Make sure that requests sent and responses received conform to the format defined in the API documentation.
+
+**Error Handling**: When using the API, take care to handle possible errors, including invalid keys, insufficient privileges, and so on.
+
+By following the steps and guidelines above, you will be able to effectively use the ClipZap API to create and manage OpenAPI keys and for production tasks. We recommend that you read the detailed instructions for each interface to ensure proper request and response processing.
