@@ -32,14 +32,7 @@
     {
       "group": "Get Started",
       "pages": [
-        "introduction"
-      ]
-    },
-    "navigation": [
-    {
-      "group": "Get Started",
-      "pages": [
-        "set"
+        "introduction","set"
       ]
     },
     {
