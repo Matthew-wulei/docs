@@ -32,7 +32,8 @@
     {
       "group": "Get Started",
       "pages": [
-        "introduction","set"
+        "introduction",
+        "set"
       ]
     },
     {
