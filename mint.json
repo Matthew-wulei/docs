@@ -33,7 +33,13 @@
       "group": "Get Started",
       "pages": [
         "introduction"
-        "sert"
+      ]
+    },
+    "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "set"
       ]
     },
     {
