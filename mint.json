@@ -32,9 +32,9 @@
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
         "introduction/whatisclipzap",
-        "productupdate"
+        "introduction/influencerplans",
+        "introduction/productupdate"
       ]
     },
     {
