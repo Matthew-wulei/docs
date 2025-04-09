@@ -40,7 +40,9 @@
     {
       "group": "Accounts",
       "pages": [
-        "Accounts/how-to-create-clipzap-account"
+        "Accounts/how-to-create-clipzap-account",
+        "Accounts/How-to-Cancel-Account",
+        "Accounts/Report-account-problem"
       ]
     },
     {
