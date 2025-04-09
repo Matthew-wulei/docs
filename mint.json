@@ -37,6 +37,12 @@
       ]
     },
     {
+      "group": "Accounts",
+      "pages": [
+        "Accounts/how-to-create-clipzap-account",
+      ]
+    },
+    {
       "group": "API Documentation",
       "pages": [
         "api-reference/introduction"
