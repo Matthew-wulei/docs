@@ -38,10 +38,16 @@
       ]
     },
     {
-      "group": "Accounts",
+      "group": "1.Accounts",
       "pages": [
-        "Accounts/how-to-create-clipzap-account",
-        "Accounts/Report-account-problem"
+        "1.Accounts/how-to-create-clipzap-account",
+        "1.Accounts/Report-account-problem"
+      ]
+    },
+    {
+      "group": "2.AIWorkflowEditor",
+      "pages": [
+        "2.AIWorkflowEditor/overview"
       ]
     },
     {
