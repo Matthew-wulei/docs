@@ -32,9 +32,8 @@
     {
       "group": "Get Started",
       "pages": [
-        "introduction/whatisclipzap",
-        "introduction/influencerplans",
-        "introduction/productupdate"
+        "introduction",
+        "productupdate"
       ]
     },
     {
